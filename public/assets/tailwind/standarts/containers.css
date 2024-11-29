@@ -1,0 +1,3 @@
+.custom-container {
+   @apply xl:max-w-[1140px] lg:max-w-[960px] md:max-w-[720px] sm:max-w-[540px] mx-auto px-[10%] lg:px-[3%];
+}

@@ -1,0 +1,8 @@
+{
+   "scripts": {
+      "css": "npx tailwindcss -i ./public/assets/tailwind/_index.css -o ./public/assets/output/all.min.css --minify"
+   },
+   "devDependencies": {
+      "tailwindcss": "^3.4.15"
+   }
+}
