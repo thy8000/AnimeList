@@ -38,6 +38,9 @@ wp-config.php
 # Node modules
 node_modules
 
+# Vscode snippets/config
+.vscode
+
 # All plugins
 #
 # Note: If you wish to whitelist plugins,
@@ -49,3 +52,6 @@ node_modules
 # Note: If you wish to whitelist themes,
 # uncomment the next line
 #/wp-content/themes
+
+# Vendor
+/vendor/
