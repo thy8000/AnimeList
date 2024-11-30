@@ -27,12 +27,8 @@ if (!defined('ABSPATH')) {
    <header id="header" class="fixed top-0 left-0 w-full z-10 bg-neutral-800 border-b-2 border-green-500" x-data="header">
       <div class="custom-container fade-in-3 transition duration-[3500ms] relative z-50">
          <div class="flex justify-between items-center py-4">
-            <span class="text-white text-lg font-poppins">
-               AnimeList
-            </span>
-
             <h1 class="text-white text-lg font-poppins">
-               <?php esc_html_e(get_the_title()); ?>
+               <?php echo get_bloginfo(); ?>
             </h1>
          </div>
       </div>
