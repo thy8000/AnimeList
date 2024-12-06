@@ -4,9 +4,11 @@ if (!defined('ABSPATH')) {
    exit;
 }
 
-include get_template_directory() . '/vendor/autoload.php';
+require_once get_template_directory() . '/utils/load-files.php';
+require_once get_template_directory() . '/utils/debug.php';
 
-require_once implode(DIRECTORY_SEPARATOR, [get_template_directory(), 'utils', 'debug.php']);
+autoload('core');
+autoload('services');
 
 new AnimeList\Core\EnqueueScripts();
 new AnimeList\Core\TemplateHierarchy();

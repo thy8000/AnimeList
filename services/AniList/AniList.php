@@ -2,6 +2,12 @@
 
 namespace AnimeList\Services\AniList;
 
+use AnimeList\Services\Graphql\GraphqlQueryBuilder;
+use AnimeList\Services\Request;
+use AnimeList\Services\Anilist\Utils as AniListUtils;
+
+include get_template_directory() . '/vendor/autoload.php';
+
 if (!defined('ABSPATH')) {
    exit;
 }
@@ -17,12 +23,11 @@ class AniList
    {
       $this->request = new Request();
 
-      $this->query_builder = new GraphQL_Query_Builder();
+      $this->query_builder = new GraphqlQueryBuilder();
    }
 
    public function get_genres()
    {
-      //TODO: ARRUMAR BUILDER PARA ACEITAR STRINGS E INTS COM ASPAS OU SEM ASPAS SEM DAR ERRO
       $this->query = $this->query_builder
          ->set_query('getGenres')
          ->set_sub_fields(['GenreCollection'])
@@ -82,7 +87,6 @@ class AniList
 
    public function get_season_popular(int $page = 1, int $per_page = 5)
    {
-      //TODO: ARRUMAR BUILDER PARA ACEITAR STRINGS E INTS COM ASPAS OU SEM ASPAS SEM DAR ERRO
       $this->query = $this->query_builder
          ->set_query('getPopularThisSeason')
          ->set_object('Page', [
@@ -97,7 +101,7 @@ class AniList
          ])
          ->set_field('media', [
             'season' => [
-               'value' => AniList_Utils::get_current_season(),
+               'value' => AniListUtils::get_current_season(),
                'type'  => 'MediaSeason',
             ],
             'seasonYear' => [
@@ -141,7 +145,7 @@ class AniList
 
    public function get_upcoming_next_season(int $page = 1, int $per_page = 5)
    {
-      $season_and_year = AniList_Utils::get_next_season_and_year();
+      $season_and_year = AniListUtils::get_next_season_and_year();
 
       $this->query = $this->query_builder
          ->set_query('getUpcomingNextSeason')

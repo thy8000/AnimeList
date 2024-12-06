@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
    exit;
 }
 
-class AniListUtils
+class Utils
 {
    private static $seasons = ['WINTER', 'SPRING', 'SUMMER', 'FALL'];
 
