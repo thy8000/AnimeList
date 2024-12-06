@@ -6,10 +6,5 @@
          "email": "thunaymoreiradesoares@gmail.com"
       }
    ],
-   "require": {},
-   "autoload": {
-      "psr-4": {
-         "AnimeList\\": "./"
-      }
-   }
+   "require": {}
 }
