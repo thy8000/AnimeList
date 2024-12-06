@@ -2,6 +2,8 @@
 
 namespace AnimeList\Services\AniList;
 
+// TODO: ADD NAMESPACES AND RENAME CLASSES
+
 if (!defined('ABSPATH')) {
    exit;
 }
