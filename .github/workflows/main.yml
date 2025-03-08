@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          npm run assets
+          npm run css
 
       - name: 📂 Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
