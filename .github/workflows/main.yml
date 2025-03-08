@@ -1,0 +1,45 @@
+on: push
+name: 🚀 Deploy website with Build
+# TODO: ADD PLUGINS
+jobs:
+  web-deploy:
+    name: 🎉 Deploy on production
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Checkout repository
+        uses: actions/checkout@v2.3.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.20.5'
+
+      - name: Fix permissions
+        run: chmod -R 755 .
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npm run assets
+
+      - name: 📂 Sync files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: 'wp-content/themes/AnimeList/'
+
+      - name: Download and Extract Plugin
+        run: |
+          curl -o advanced-custom-fields-pro.zip http://www.thunaymoreiradesoares.com/uploads/advanced-custom-fields-pro.zip
+          unzip -o advanced-custom-fields-pro.zip -d advanced-custom-fields-pro/
+
+      - name: 📂 Upload Plugin via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: advanced-custom-fields-pro/
+          server-dir: 'wp-content/plugins/advanced-custom-fields-pro/'
