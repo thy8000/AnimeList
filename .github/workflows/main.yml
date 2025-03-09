@@ -32,7 +32,7 @@ jobs:
 
       - name: Download and Extract Plugin
         run: |
-          curl -o advanced-custom-fields-pro.zip http://www.thunaymoreiradesoares.com/uploads/advanced-custom-fields-pro.zip
+          curl -o advanced-custom-fields-pro.zip https://plugins.thunaymoreiradesoares.com/advanced-custom-fields-pro.zip
           unzip -o advanced-custom-fields-pro.zip -d advanced-custom-fields-pro/
 
       - name: 📂 Upload Plugin via FTP
