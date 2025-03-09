@@ -17,6 +17,9 @@ jobs:
       - name: Fix permissions
         run: chmod -R 755 .
 
+      - name: Run autoload
+        run: npm run autoload
+
       - name: Install dependencies
         run: |
           npm install
