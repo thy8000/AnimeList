@@ -1,10 +1,11 @@
 {
-   "name": "thunaymoreira/animelist",
-   "authors": [
-      {
-         "name": "thy8000",
-         "email": "thunaymoreiradesoares@gmail.com"
+   "name": "thunay/anime-list",
+   "type": "project",
+   "autoload": {
+      "psr-4": {
+         "AnimeList\\Core\\": "core/",
+         "AnimeList\\Services\\": "services/"
       }
-   ],
+   },
    "require": {}
 }
