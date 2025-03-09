@@ -1,6 +1,6 @@
 <?php
 
-use AnimeList\Services\AniList\AniList;
+use AnimeList\Services\Anime\AnilistFactory;
 
 if (!defined('ABSPATH')) {
    exit;
@@ -8,15 +8,9 @@ if (!defined('ABSPATH')) {
 
 get_template_part('public/components/header/_index');
 
-$AniList = new AniList();
+$AnilistFactory = new AnilistFactory();
+$Anilist = $AnilistFactory->get_api();
 
-$genres = $AniList->get_genres();
-$trending_now = $AniList->get_trending_now();
-$season_popular = $AniList->get_season_popular();
-$upcoming_next_season = $AniList->get_upcoming_next_season();
-$all_time_popular = $AniList->get_all_time_popular();
-
-//TODO: Import Anime list page from thunay-moreira-de-soares-wp to this repo.
 ?>
 
 <?php
