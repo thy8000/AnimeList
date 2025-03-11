@@ -6,7 +6,9 @@ if (!defined('ABSPATH')) {
    exit;
 }
 
-abstract class AnimeFactory
+abstract class Factory
 {
+   protected string $api_url;
+
    abstract public function get_api();
 }
