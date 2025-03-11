@@ -54,4 +54,9 @@ node_modules
 
 # Vendor
 /vendor/
+
+# Acessos
 /acessos/
+
+# Assets
+public/assets/output/all.min.css
