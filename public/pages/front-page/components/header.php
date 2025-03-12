@@ -70,7 +70,7 @@ use AnimeList\Services\AniList\Utils;
                'id'   => 'page-anime-list-year',
                'label' => __('Year', 'thunay'),
                'type' => 'select',
-               //'options' => MediaAPIUtils::get_years(1940, date('Y')),
+               'options' => Utils::get_years($args['oldest_anime'][0]['startDate']['year'] ?? 1940, date('Y') + 1),
                //'x-model' => 'filterMap.year',
                //'x-on:change' => 'filter'
             ]);
@@ -85,7 +85,7 @@ use AnimeList\Services\AniList\Utils;
                'id'   => 'page-anime-list-season',
                'label' => __('Season', 'thunay'),
                'type' => 'select',
-               //'options' => MediaAPIUtils::get_seasons(),
+               'options' => array_column($args['seasons'], 'name'),
                //'x-model' => 'filterMap.season',
                //'x-on:change' => 'filter'
             ]);
@@ -100,7 +100,9 @@ use AnimeList\Services\AniList\Utils;
                'id'   => 'page-anime-list-format',
                'label' => __('Format', 'thunay'),
                'type' => 'select',
-               // 'options' => MediaAPIUtils::get_formats(),
+               'options' => array_map(function ($name) {
+                  return str_replace('_', ' ', $name);
+               }, array_column($args['formats'], 'name')),
                //'x-model' => 'filterMap.format',
                //'x-on:change' => 'filter'
             ]);

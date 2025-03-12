@@ -22,4 +22,13 @@ class Utils
 
       return $_genres;
    }
+
+   public static function get_years($start_year, $end_year)
+   {
+      $years = array_combine(range($end_year, $start_year), range($end_year, $start_year));
+
+      $years = array_merge(['any' => 'Any'], $years);
+
+      return $years;
+   }
 }
