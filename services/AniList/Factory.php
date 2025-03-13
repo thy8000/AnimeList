@@ -3,13 +3,13 @@
 namespace AnimeList\Services\AniList;
 
 use AnimeList\Services\AniList\API;
-use AnimeList\Services\Anime\Factory as AnimeFactory;
+use AnimeList\Services\Anime\APIFactory as AnimeAPIFactory;
 
 if (!defined('ABSPATH')) {
    exit;
 }
 
-class Factory extends AnimeFactory
+class Factory extends AnimeAPIFactory
 {
    public function get_api()
    {

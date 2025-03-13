@@ -2,15 +2,16 @@
 
 namespace AnimeList\Services\AniList;
 
-use AnimeList\Services\Anime\AnimeInterface;
+use AnimeList\Services\Anime\APIInterface;
 use AnimeList\Services\Request\Curl;
 use AnimeList\Services\GraphQL\QueryBuilder;
+use AnimeList\Services\AniList\Utils;
 
 if (!defined('ABSPATH')) {
    exit;
 }
 
-class API implements AnimeInterface
+class API implements APIInterface
 {
    private $api_url = "https://graphql.anilist.co";
    private $request;
@@ -135,5 +136,215 @@ class API implements AnimeInterface
       );
 
       return $this->request->response['data']['__type']['enumValues'];
+   }
+
+   public function get_trending_now()
+   {
+      $this->query = $this->Query_Builder
+         ->set_query('getTrendingNow')
+         ->set_object('Page', [
+            'page' => [
+               'value' => 1,
+               'type'  => 'Int',
+            ],
+            'perPage' => [
+               'value' => 5,
+               'type'  => 'Int',
+            ]
+         ])
+         ->set_field('media', [
+            'sort' => [
+               'value' => 'TRENDING_DESC',
+               'type'  => 'MediaSort',
+            ]
+         ])
+         ->set_sub_fields([
+            'title' => [
+               'romaji',
+            ],
+            'coverImage' => [
+               'extraLarge',
+               'large',
+               'medium'
+            ]
+         ])
+         ->build();
+
+      $this->request->post(
+         $this->api_url,
+         [
+            'query' => $this->query,
+         ]
+      );
+
+      return $this->request->response['data']['Page']['media'];
+   }
+
+   public function get_season_popular()
+   {
+      $this->query = $this->Query_Builder
+         ->set_query('getPopularThisSeason')
+         ->set_object('Page', [
+            'page' => [
+               'value' => 1,
+               'type'  => 'Int',
+            ],
+            'perPage' => [
+               'value' => 5,
+               'type'  => 'Int',
+            ]
+         ])
+         ->set_field('media', [
+            'season' => [
+               'value' => Utils::get_current_season(),
+               'type'  => 'MediaSeason',
+            ],
+            'seasonYear' => [
+               'value' => date('Y'),
+               'type'  => 'Int'
+            ],
+            'sort' => [
+               'value' => 'POPULARITY_DESC',
+               'type'  => 'MediaSort',
+            ]
+         ])
+         ->set_sub_fields([
+            'id',
+            'title' => [
+               'romaji',
+               'english',
+               'native',
+            ],
+            'coverImage' => [
+               'extraLarge',
+               'large',
+               'medium',
+            ],
+            'popularity',
+            'format',
+            'status',
+            'season',
+            'seasonYear'
+         ])
+         ->build();
+
+      $this->request->post(
+         $this->api_url,
+         [
+            'query' => $this->query,
+         ]
+      );
+
+      return $this->request->response['data']['Page']['media'];
+   }
+
+   public function get_upcoming_next_season()
+   {
+      $season_and_year = Utils::get_next_season_and_year();
+
+      $this->query = $this->Query_Builder
+         ->set_query('getUpcomingNextSeason')
+         ->set_object('Page', [
+            'page' => [
+               'value' => 1,
+               'type' => 'Int'
+            ],
+            'perPage' => [
+               'value' => 5,
+               'type' => 'Int'
+            ]
+         ])
+         ->set_field('media', [
+            'season' => [
+               'value' => $season_and_year['season'],
+               'type' => 'MediaSeason'
+            ],
+            'seasonYear' => [
+               'value' => $season_and_year['year'],
+               'type' => 'MediaSeason'
+            ],
+            'sort' => [
+               'value' => 'POPULARITY_DESC',
+               'type' => 'MediaSort'
+            ]
+         ])
+         ->set_sub_fields([
+            'id',
+            'title' => [
+               'romaji',
+               'english',
+               'native',
+            ],
+            'coverImage' => [
+               'extraLarge',
+               'large',
+               'medium'
+            ],
+            'popularity',
+            'format',
+            'status',
+            'season',
+            'seasonYear'
+         ])
+         ->build();
+
+      $this->request->post(
+         $this->api_url,
+         [
+            'query' => $this->query,
+         ]
+      );
+
+      return $this->request->response['data']['Page']['media'];
+   }
+
+   public function get_all_time_popular()
+   {
+      $this->query = $this->Query_Builder
+         ->set_query('getAllTimePopular')
+         ->set_object('Page', [
+            'page' => [
+               'value' => 1,
+               'type' => 'Int'
+            ],
+            'perPage' => [
+               'value' => 5,
+               'type' => 'Int'
+            ]
+         ])
+         ->set_field('media', [
+            'sort' => [
+               'value' => 'POPULARITY_DESC',
+               'type' => 'MediaSort'
+            ]
+         ])
+         ->set_sub_fields([
+            'id',
+            'title' => [
+               'romaji',
+               'english',
+               'native',
+            ],
+            'coverImage' => [
+               'extraLarge',
+               'large',
+               'medium'
+            ],
+            'popularity',
+            'format',
+            'status',
+            'season',
+            'seasonYear'
+         ])
+         ->build();
+
+      $this->request->post(
+         $this->api_url,
+         [
+            'query' => $this->query,
+         ]
+      );
+
+      return $this->request->response['data']['Page']['media'];
    }
 }

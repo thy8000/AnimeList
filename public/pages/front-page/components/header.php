@@ -102,7 +102,7 @@ use AnimeList\Services\AniList\Utils;
                'type' => 'select',
                'options' => array_map(function ($name) {
                   return str_replace('_', ' ', $name);
-               }, array_column($args['formats'], 'name')),
+               }, array_merge([esc_html__('Any', 'thunay')], array_column($args['formats'], 'name'))),
                //'x-model' => 'filterMap.format',
                //'x-on:change' => 'filter'
             ]);
