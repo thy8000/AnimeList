@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
    exit;
 }
 
-interface AnimeInterface
+interface APIInterface
 {
    public function get_genres();
 }

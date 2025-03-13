@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
    exit;
 }
 
-abstract class Factory
+abstract class APIFactory
 {
    protected string $api_url;
 
