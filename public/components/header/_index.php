@@ -34,4 +34,4 @@ if (!defined('ABSPATH')) {
       </div>
    </header>
 
-   <main>
+   <main x-data="<?php echo esc_attr($args['x-data'] ?? ''); ?>">

@@ -347,4 +347,59 @@ class API implements APIInterface
 
       return $this->request->response['data']['Page']['media'];
    }
+
+   public function get_filter($args = [])
+   {
+      if (empty($args)) {
+         return;
+      }
+
+      $object_args = array_filter($args);
+
+      $this->query = $this->Query_Builder
+         ->set_query('getFilter')
+         ->set_object('Page', [
+            'page' => [
+               'value' => 1,
+               'type'  => 'Int',
+            ],
+            'perPage' => [
+               'value' => 50,
+               'type'  => 'Int',
+            ]
+         ])
+         ->set_field('media', $object_args)
+         ->set_sub_fields([
+            'id',
+            'title' => [
+               'romaji',
+               'english',
+               'native',
+            ],
+            'coverImage' => [
+               'extraLarge',
+               'large',
+               'medium'
+            ],
+            'popularity',
+            'format',
+            'status',
+            'season',
+            'seasonYear'
+         ])
+         ->build();
+
+      $this->request->post(
+         $this->api_url,
+         [
+            'query' => $this->query,
+         ]
+      );
+
+      if (empty($this->request->response['data']['Page']['media'])) {
+         return [];
+      }
+
+      return $this->request->response['data']['Page']['media'];
+   }
 }

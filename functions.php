@@ -14,3 +14,4 @@ new AnimeList\Core\EnqueueScripts();
 new AnimeList\Core\TemplateHierarchy();
 new AnimeList\Core\ThemeSupport();
 new AnimeList\Core\WPHead();
+new AnimeList\Services\AniList\RestAPI();

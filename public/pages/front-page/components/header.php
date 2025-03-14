@@ -41,8 +41,8 @@ use AnimeList\Services\AniList\Utils;
             get_template_part('public/components/input/_index', null, [
                'id'   => 'page-anime-list-search',
                'label' => __('Search', 'thunay'),
-               //'x-model' => 'filterMap.search',
-               //'x-on:keyup.debounce.700ms' => 'filter'
+               'x-model' => 'filterMap.search',
+               'x-on:keyup.debounce.700ms' => 'filter'
             ]);
 
             ?>
@@ -108,6 +108,13 @@ use AnimeList\Services\AniList\Utils;
             ]);
 
             ?>
+         </div>
+      </div>
+
+      <div class="flex">
+         <div class="flex gap-2 bg-green-500 mt-6 p-2 rounded" x-show="filterMap.search">
+            <span>Search:</span>
+            <span x-text="filterMap.search"></span>
          </div>
       </div>
    </div>

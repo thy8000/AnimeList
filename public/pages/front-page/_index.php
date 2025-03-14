@@ -6,7 +6,9 @@ if (!defined('ABSPATH')) {
    exit;
 }
 
-get_template_part('public/components/header/_index');
+get_template_part('public/components/header/_index', null, [
+   'x-data' => 'frontPage'
+]);
 
 $Anilist_Factory = new Factory();
 $API = $Anilist_Factory->get_api();

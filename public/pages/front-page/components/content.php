@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 ?>
 
-<section class="py-10">
+<section class="py-10" x-show="!searchValue">
    <div class="custom-container">
       <?php
 
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
    </div>
 </section>
 
-<section class="py-10">
+<section class="py-10" x-show="!searchValue">
    <div class="custom-container">
       <?php
 
@@ -34,7 +34,7 @@ if (!defined('ABSPATH')) {
    </div>
 </section>
 
-<section class="py-10">
+<section class="py-10" x-show="!searchValue">
    <div class="custom-container">
       <?php
 
@@ -48,7 +48,7 @@ if (!defined('ABSPATH')) {
    </div>
 </section>
 
-<section class="py-10">
+<section class="py-10" x-show="!searchValue">
    <div class="custom-container">
       <?php
 
@@ -59,5 +59,11 @@ if (!defined('ABSPATH')) {
       ]);
 
       ?>
+   </div>
+</section>
+
+<section class="py-10" x-show="searchValue">
+   <div class="custom-container">
+      <ul id="anime-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 lg:gap-10 mt-10"></ul>
    </div>
 </section>
