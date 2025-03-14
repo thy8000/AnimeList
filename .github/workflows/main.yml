@@ -24,6 +24,7 @@ jobs:
         run: |
           npm install
           npm run css
+          npm run js
 
       - name: 📂 Sync files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
