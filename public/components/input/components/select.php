@@ -22,7 +22,7 @@ if (!empty($args['label'])) {
    foreach ($args['options'] as $key => $value) {
 
    ?>
-      <option value="<?php esc_attr_e($key); ?>"><?php esc_html_e($value); ?></option>
+      <option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($value); ?></option>
    <?php
 
    }

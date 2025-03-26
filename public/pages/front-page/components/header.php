@@ -56,8 +56,8 @@ use AnimeList\Services\AniList\Utils;
                'label' => __('Genre', 'thunay'),
                'type' => 'select',
                'options' => Utils::get_genres($args['genres']),
-               //'x-model' => 'filterMap.genre',
-               //'x-on:change' => 'filter'
+               'x-model' => 'filterMap.genre',
+               'x-on:change' => 'filter'
             ]);
 
             ?>
@@ -71,8 +71,8 @@ use AnimeList\Services\AniList\Utils;
                'label' => __('Year', 'thunay'),
                'type' => 'select',
                'options' => Utils::get_years($args['oldest_anime'][0]['startDate']['year'] ?? 1940, date('Y') + 1),
-               //'x-model' => 'filterMap.year',
-               //'x-on:change' => 'filter'
+               'x-model' => 'filterMap.seasonYear',
+               'x-on:change' => 'filter'
             ]);
 
             ?>

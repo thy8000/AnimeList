@@ -5,7 +5,7 @@ document.addEventListener('alpine:init', () => {
       filterMap: {
          search: '',
          genre: '',
-         year: '',
+         seasonYear: '',
          season: '',
          format: '',
       },
@@ -20,8 +20,8 @@ document.addEventListener('alpine:init', () => {
             body: JSON.stringify({
                filter: {
                   search: this.filterMap.search ?? '',
-                  genre: this.filterMap.genres ?? '',
-                  year: this.filterMap.year ?? '',
+                  genre: this.filterMap.genre ?? '',
+                  seasonYear: this.filterMap.seasonYear ?? '',
                   season: this.filterMap.season ?? '',
                   format: this.filterMap.format ?? '',
                },

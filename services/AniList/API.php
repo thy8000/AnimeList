@@ -356,6 +356,37 @@ class API implements APIInterface
 
       $object_args = array_filter($args);
 
+      if (isset($args['search']) && !empty($args['search'])) {
+         $object_args['search'] = [
+            'value' => $args['search'],
+            'type'  => 'String'
+         ];
+      }
+
+      if (isset($args['genre']) && !empty($args['genre'])) {
+         $object_args['genre_in'] = [
+            'value' => is_array($args['genre']) ? $args['genre'] : [$args['genre']],
+            'type'  => '[String]'
+         ];
+
+         $object_args['sort'] = [
+            'value' => 'POPULARITY_DESC',
+            'type'  => 'MediaSort'
+         ];
+      }
+
+      if (isset($args['seasonYear']) && !empty($args['seasonYear'])) {
+         $object_args['seasonYear'] = [
+            'value' => $args['seasonYear'],
+            'type'  => 'Int'
+         ];
+
+         $object_args['sort'] = [
+            'value' => 'POPULARITY_DESC',
+            'type'  => 'MediaSort'
+         ];
+      }
+
       $this->query = $this->Query_Builder
          ->set_query('getFilter')
          ->set_object('Page', [

@@ -119,6 +119,13 @@ class QueryBuilder
          return 'null';
       }
 
+      if ($field['type'] === '[String]') {
+         $values = array_map(function($value) {
+            return '"' . addslashes($value) . '"';
+         }, $field['value']);
+         return '[' . implode(', ', $values) . ']';
+      }
+
       return ($field['type'] === 'String') ? '"' . addslashes($field['value']) . '"' : $field['value'];
    }
 }

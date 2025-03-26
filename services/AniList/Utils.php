@@ -12,24 +12,19 @@ class Utils
 
    public static function get_genres(array $genres)
    {
-      $_genres = [];
-
-      foreach ($genres as $genre) {
-         $lowerstring_genre = strtolower($genre);
-
-         $_genres[$lowerstring_genre] = $genre;
-      }
-
-      $_genres = array_merge(['any' => 'Any'], $_genres);
-
-      return $_genres;
+      $_genres = array_combine($genres, $genres);
+      return array_merge(['Any' => 'Any'], $_genres);
    }
 
    public static function get_years($start_year, $end_year)
    {
-      $years = array_combine(range($end_year, $start_year), range($end_year, $start_year));
+      $years = [
+         0 => 'Any',
+      ];
 
-      $years = array_merge(['any' => 'Any'], $years);
+      for ($year = $end_year; $year >= $start_year; $year--) {
+         $years[$year] = $year;
+      }
 
       return $years;
    }
