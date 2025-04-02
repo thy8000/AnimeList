@@ -10,9 +10,11 @@ class Utils
 {
    private static $seasons = ['WINTER', 'SPRING', 'SUMMER', 'FALL'];
 
+   // todo: talvez refatorar esse também
    public static function get_genres(array $genres)
    {
       $_genres = array_combine($genres, $genres);
+
       return array_merge(['Any' => 'Any'], $_genres);
    }
 
@@ -27,6 +29,21 @@ class Utils
       }
 
       return $years;
+   }
+
+   // todo: refatorar para que seja uma function os dois get_seasons e get_formats
+   public static function get_seasons($seasons)
+   {
+      $_seasons = array_combine(array_column($seasons, 'name'), array_column($seasons, 'name'));
+
+      return array_merge(['Any' => 'Any'], $_seasons);
+   }
+
+   public static function get_formats($formats)
+   {
+      $_formats = array_combine(array_column($formats, 'name'), array_column($formats, 'name'));
+
+      return array_merge(['Any' => 'Any'], $_formats);
    }
 
    public static function get_current_season()

@@ -85,9 +85,9 @@ use AnimeList\Services\AniList\Utils;
                'id'   => 'page-anime-list-season',
                'label' => __('Season', 'thunay'),
                'type' => 'select',
-               'options' => array_column($args['seasons'], 'name'),
-               //'x-model' => 'filterMap.season',
-               //'x-on:change' => 'filter'
+               'options' => Utils::get_seasons($args['seasons']),
+               'x-model' => 'filterMap.season',
+               'x-on:change' => 'filter'
             ]);
 
             ?>
@@ -100,11 +100,9 @@ use AnimeList\Services\AniList\Utils;
                'id'   => 'page-anime-list-format',
                'label' => __('Format', 'thunay'),
                'type' => 'select',
-               'options' => array_map(function ($name) {
-                  return str_replace('_', ' ', $name);
-               }, array_merge([esc_html__('Any', 'thunay')], array_column($args['formats'], 'name'))),
-               //'x-model' => 'filterMap.format',
-               //'x-on:change' => 'filter'
+               'options' => Utils::get_formats($args['formats']),
+               'x-model' => 'filterMap.format',
+               'x-on:change' => 'filter'
             ]);
 
             ?>

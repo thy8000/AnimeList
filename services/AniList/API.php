@@ -348,18 +348,26 @@ class API implements APIInterface
       return $this->request->response['data']['Page']['media'];
    }
 
+   // TODO: FILTRAR QUANDO NÃO RETORNAR NADA E QUANDO APAGAR O INPUT DE SEARCH
    public function get_filter($args = [])
    {
       if (empty($args)) {
          return;
       }
 
-      $object_args = array_filter($args);
+      $args = array_filter($args, function ($value) {
+         return $value !== 'Any' && trim($value) !== '';
+      });
+
+      $object_args['type'] = [
+         'value' => 'ANIME',
+         'type'  => 'MediaType'
+      ];
 
       if (isset($args['search']) && !empty($args['search'])) {
          $object_args['search'] = [
             'value' => $args['search'],
-            'type'  => 'String'
+            'type'  => 'String',
          ];
       }
 
@@ -384,6 +392,30 @@ class API implements APIInterface
          $object_args['sort'] = [
             'value' => 'POPULARITY_DESC',
             'type'  => 'MediaSort'
+         ];
+      }
+
+      if (isset($args['season']) && !empty($args['season'])) {
+         $object_args['season'] = [
+            'value' => $args['season'],
+            'type'  => 'MediaSeason'
+         ];
+
+         $object_args['sort'] = [
+            'value' => 'START_DATE_DESC',
+            'type'  => 'MediaSort'
+         ];
+      }
+
+      if (isset($args['format']) && !empty($args['format'])) {
+         $object_args['format'] = [
+            'value' => $args['format'],
+            'type'  => 'MediaFormat',
+         ];
+
+         $object_args['sort'] = [
+            'value' => 'START_DATE_DESC',
+            'type'  => 'MediaSort',
          ];
       }
 
