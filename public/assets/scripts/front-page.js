@@ -4,14 +4,21 @@ document.addEventListener('alpine:init', () => {
       searchValue: '',
       filterMap: {
          search: '',
-         genre: '',
-         seasonYear: '',
-         season: '',
-         format: '',
+         genre: 'Any',
+         seasonYear: '0',
+         season: 'Any',
+         format: 'Any',
       },
       searchListElement: document.querySelector('#anime-list-container'),
 
       filter() {
+         this.clearData()
+
+         if (this.isFilterEmpty()) {
+            return
+         }
+
+         // TODO: ADICIONAR LOADING NA REQUEST
          const response = fetch(`${this.restAPI}anilist/api/search`, {
             method: 'POST',
             headers: {
@@ -34,13 +41,34 @@ document.addEventListener('alpine:init', () => {
                return response.json()
             })
             .then((data) => {
-               this.searchValue = data
+               this.searchValue = true
                this.searchListElement.innerHTML = data
-               console.log(this.searchValue)
             })
             .catch((error) => {
+               // TODO: ESTILIZAR MENSAGEM DE ERRO
                console.error('Error while fetching:', error)
+               this.searchValue = true
+               this.searchListElement.innerHTML =
+                  '<h1 style="color: white;">Não foi encontrado nenhum resultado para sua busca</h1>'
             })
+      },
+
+      clearData() {
+         this.searchListElement.innerHTML = ''
+      },
+
+      isFilterEmpty() {
+         const defaultValues = {
+            search: '',
+            genre: 'Any',
+            seasonYear: '0',
+            season: 'Any',
+            format: 'Any',
+         }
+
+         console.log(this.filterMap)
+
+         return Object.entries(this.filterMap).every(([key, value]) => value === defaultValues[key])
       },
    }))
 })

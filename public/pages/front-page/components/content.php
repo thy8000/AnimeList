@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 ?>
 
-<section class="py-10" x-show="!searchValue">
+<section class="py-10" x-show="isFilterEmpty">
    <div class="custom-container">
       <?php
 
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
    </div>
 </section>
 
-<section class="py-10" x-show="!searchValue">
+<section class="py-10" x-show="isFilterEmpty">
    <div class="custom-container">
       <?php
 
@@ -34,7 +34,7 @@ if (!defined('ABSPATH')) {
    </div>
 </section>
 
-<section class="py-10" x-show="!searchValue">
+<section class="py-10" x-data="console.log(isFilterEmpty())" x-show="isFilterEmpty">
    <div class="custom-container">
       <?php
 
@@ -48,7 +48,7 @@ if (!defined('ABSPATH')) {
    </div>
 </section>
 
-<section class="py-10" x-show="!searchValue">
+<section class="py-10" x-show="isFilterEmpty">
    <div class="custom-container">
       <?php
 
