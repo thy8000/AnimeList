@@ -10,6 +10,7 @@ document.addEventListener('alpine:init', () => {
          format: 'Any',
       },
       searchListElement: document.querySelector('#anime-list-container'),
+      isLoading: false,
 
       filter() {
          this.clearData()
@@ -18,7 +19,8 @@ document.addEventListener('alpine:init', () => {
             return
          }
 
-         // TODO: ADICIONAR LOADING NA REQUEST
+         this.isLoading = true
+
          const response = fetch(`${this.restAPI}anilist/api/search`, {
             method: 'POST',
             headers: {
@@ -50,6 +52,9 @@ document.addEventListener('alpine:init', () => {
                this.searchValue = true
                this.searchListElement.innerHTML =
                   '<h1 style="color: white;">Não foi encontrado nenhum resultado para sua busca</h1>'
+            })
+            .finally(() => {
+               this.isLoading = false
             })
       },
 

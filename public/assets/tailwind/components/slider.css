@@ -1,0 +1,15 @@
+.spinner {
+   @apply w-14 h-14 border-4 border-solid border-green-400 border-t-green-900 rounded-full;
+
+   animation: spin 1s linear infinite;
+   margin: 100px auto;
+}
+
+@keyframes spin {
+   0% {
+      transform: rotate(0deg);
+   }
+   100% {
+      transform: rotate(360deg);
+   }
+}

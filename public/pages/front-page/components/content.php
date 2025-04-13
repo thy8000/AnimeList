@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
 
 ?>
 
+<div x-show="isLoading" class="spinner"></div>
+
 <section class="py-10" x-show="isFilterEmpty">
    <div class="custom-container">
       <?php
