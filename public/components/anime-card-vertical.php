@@ -10,7 +10,7 @@ $Anime = new Anime($args['data']);
 
 ?>
 
-<a href="#" class="group block lg:flex">
+<a href="<?php echo esc_url($Anime->get_link()); ?>" class="group block lg:flex">
    <div class="flex flex-col gap-4">
       <img class="aspect-[230/325] w-full object-cover" src="<?php echo esc_url($Anime->get_image('large')); ?>" />
 

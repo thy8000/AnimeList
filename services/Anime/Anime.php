@@ -19,6 +19,11 @@ class Anime
       $this->data = $data;
    }
 
+   public function get_ID()
+   {
+      return $this->data['id'];
+   }
+
    public function get_title($language = 'romaji')
    {
       return $this->data['title'][$language];
@@ -52,5 +57,10 @@ class Anime
    public function get_tags()
    {
       return $this->data['tags'];
+   }
+
+   public function get_link()
+   {
+      return get_home_url() . '/anime/' . $this->get_ID() . '/' . strtolower(str_replace(' ', '-', $this->get_title()));
    }
 }

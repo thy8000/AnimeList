@@ -159,6 +159,7 @@ class API implements APIInterface
             ]
          ])
          ->set_sub_fields([
+            'id',
             'title' => [
                'romaji',
             ],
