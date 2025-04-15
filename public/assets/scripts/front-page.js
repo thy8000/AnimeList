@@ -44,12 +44,13 @@ document.addEventListener('alpine:init', () => {
             })
             .then((data) => {
                this.searchValue = true
+               this.searchListElement.classList.add('grid')
                this.searchListElement.innerHTML = data
             })
             .catch((error) => {
-               // TODO: ESTILIZAR MENSAGEM DE ERRO
                console.error('Error while fetching:', error)
                this.searchValue = true
+               this.searchListElement.classList.remove('grid')
                this.searchListElement.innerHTML =
                   '<h1 style="color: white;">Não foi encontrado nenhum resultado para sua busca</h1>'
             })
