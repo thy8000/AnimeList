@@ -12,6 +12,7 @@ module.exports = {
          green: colors.green,
          transparent: colors.transparent,
          slate: colors.slate,
+         red: colors.red,
       },
       extend: {
          colors: {
