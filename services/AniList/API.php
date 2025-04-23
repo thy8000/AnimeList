@@ -349,7 +349,6 @@ class API implements APIInterface
       return $this->request->response['data']['Page']['media'];
    }
 
-   // TODO: FILTRAR QUANDO NÃO RETORNAR NADA E QUANDO APAGAR O INPUT DE SEARCH
    public function get_filter($args = [])
    {
       if (empty($args)) {
@@ -465,5 +464,37 @@ class API implements APIInterface
       }
 
       return $this->request->response['data']['Page']['media'];
+   }
+
+   public function get_single_anime_info(int $anime_ID = 0)
+   {
+      $this->query = $this->Query_Builder
+         ->set_query('getSingleAnimeInfo')
+         ->set_object('Media', [
+            'id' => [
+               'value' => $anime_ID,
+               'type' => 'Int',
+            ]
+         ])
+         ->set_sub_fields([
+            'title' => [
+               'english',
+               'native',
+            ],
+            'type',
+            'coverImage' => [
+               'extraLarge',
+            ]
+         ])
+         ->build();
+
+      $this->request->post(
+         $this->api_url,
+         [
+            'query' => $this->query,
+         ]
+      );
+
+      return $this->request->response['data']['Media'];
    }
 }

@@ -1,10 +1,13 @@
 <?php
 
+use AnimeList\Services\Anime\Anime;
+
 get_template_part('public/components/header/_index', null, [
    'x-data' => 'virtualPageAnime'
 ]);
 
-// TODO: CRIAR SIDEBAR
+$Anime = new Anime((int) get_query_var('anime_ID'));
+
 ?>
 
 <section class="mt-20">
@@ -13,17 +16,21 @@ get_template_part('public/components/header/_index', null, [
          <div class="lg:basis-1/4">
             <div>
                <picture>
-                  <img class="aspect-[2/0] object-cover h-96" src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx137595-1m3i7vxyOqXc.png">
+                  <img class="aspect-[2/0] object-cover h-96" src="<?php echo esc_url($Anime->get_image()); ?>">
                </picture>
             </div>
 
             <div class="mt-8 flex flex-col lg:hidden">
-               <h1 class="text-3xl font-poppins font-semibold text-green-500">Naruto</h1>
+               <h1 class="text-3xl font-poppins font-semibold text-green-500">
+                  <?php echo esc_html($Anime->get_title('english')); ?>
+               </h1>
 
-               <span class="mt-1 text-xl font-semibold text-white">66666년만에 환생한 흑마법사</span>
+               <span class="mt-1 text-xl font-semibold text-white">
+                  <?php echo esc_html($Anime->get_title('native')); ?>
+               </span>
 
                <span class="mt-4 self-start bg-green-500 rounded-lg py-1 px-2 text-white text-sm">
-                  Anime
+                  <?php echo esc_html($Anime->get_type()); ?>
                </span>
             </div>
 
@@ -104,12 +111,16 @@ get_template_part('public/components/header/_index', null, [
 
          <div class="flex flex-col lg:basis-3/4">
             <div class="hidden lg:flex flex-col">
-               <h1 class="text-3xl font-poppins font-semibold text-green-500">Naruto</h1>
+               <h1 class="text-3xl font-poppins font-semibold text-green-500">
+                  <?php echo esc_html($Anime->get_title('english')); ?>
+               </h1>
 
-               <span class="mt-1 text-xl font-semibold text-white">66666년만에 환생한 흑마법사</span>
+               <span class="mt-1 text-xl font-semibold text-white">
+                  <?php echo esc_html($Anime->get_title('native')); ?>
+               </span>
 
                <span class="mt-4 self-start bg-green-500 rounded-lg py-1 px-2 text-white text-sm">
-                  Anime
+                  <?php echo esc_html($Anime->get_type()); ?>
                </span>
             </div>
 
