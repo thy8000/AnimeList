@@ -71,17 +71,33 @@ class QueryBuilder
 
    public function set_sub_fields(array $fields)
    {
-      $this->query['sub_fields'] = '';
+      $this->query['sub_fields'] = $this->build_sub_fields($fields);
+
+      return $this;
+   }
+
+   private function build_sub_fields(array $fields): string
+   {
+      $result = '';
 
       foreach ($fields as $key => $field) {
          if (is_array($field)) {
-            $this->query['sub_fields'] .= $key . " { " . implode(" ", $field) . " } ";
+            if ($this->is_associative($field)) {
+               $result .= $key . ' { ' . $this->build_sub_fields($field) . ' } ';
+            } else {
+               $result .= $key . ' { ' . implode(' ', $field) . ' } ';
+            }
          } else {
-            $this->query['sub_fields'] .= $field . " ";
+            $result .= $field . ' ';
          }
       }
 
-      return $this;
+      return $result;
+   }
+
+   private function is_associative(array $array): bool
+   {
+      return array_keys($array) !== range(0, count($array) - 1);
    }
 
    public function build()
@@ -120,7 +136,7 @@ class QueryBuilder
       }
 
       if ($field['type'] === '[String]') {
-         $values = array_map(function($value) {
+         $values = array_map(function ($value) {
             return '"' . addslashes($value) . '"';
          }, $field['value']);
          return '[' . implode(', ', $values) . ']';
