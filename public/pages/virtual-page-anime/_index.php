@@ -128,7 +128,7 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
                <h2 class="text-xl font-semibold text-green-500">Sinopse</h2>
 
                <div class="mt-4 text-white">
-                  Diablo Volpir, a powerful dark mage, was defeated and sealed away in a battle against the 12 gods. He finally wakes up from his sleep 66,666 years later, however, in the body of a newborn baby, Jamie Welton! 9 years later, with a fraction of power he once held and with the loving family and peaceful environment he is now surrounded by, Jamie plans to exact revenge against the 12 gods that had sealed him away.
+                  <?php echo $Anime->get_description(); ?>
                </div>
             </div>
 
@@ -136,6 +136,8 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
                <h2 class="text-xl font-semibold text-green-500">Relacionado</h2>
 
                Lista de relacionados
+
+               <!-- TODO: CRIAR COMPONENTE DE CARDS RELACIONADOS E LISTAR CARDS RELACIONADOS -->
             </div>
 
             <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">

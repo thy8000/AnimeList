@@ -484,6 +484,17 @@ class API implements APIInterface
             'type',
             'coverImage' => [
                'extraLarge',
+            ],
+            'description',
+            'relations' => [
+               'edges' => [
+                  'relationType',
+                  'node' => [
+                     'title' => [
+                        'english',
+                     ]
+                  ]
+               ]
             ]
          ])
          ->build();

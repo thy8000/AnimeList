@@ -83,4 +83,14 @@ class Anime
    {
       return ucfirst(strtolower($this->data['type']));
    }
+
+   public function get_description()
+   {
+      return $this->data['description'];
+   }
+
+   public function get_relation()
+   {
+      return $this->data['relations']['edges'];
+   }
 }
