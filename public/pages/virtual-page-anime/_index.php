@@ -137,7 +137,13 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
 
                Lista de relacionados
 
-               <!-- TODO: CRIAR COMPONENTE DE CARDS RELACIONADOS E LISTAR CARDS RELACIONADOS -->
+               <ul class="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 gap-12 mt-8">
+                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+
+                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+
+                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+               </ul>
             </div>
 
             <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
