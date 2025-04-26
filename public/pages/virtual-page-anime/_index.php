@@ -135,9 +135,14 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
             <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
                <h2 class="text-xl font-semibold text-green-500">Relacionado</h2>
 
-               Lista de relacionados
-
+               <!-- TODO: TRAZER DADOS DA API -->
                <ul class="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 gap-12 mt-8">
+                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+
+                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+
+                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+
                   <?php get_template_part('public/components/anime-card-horizontal'); ?>
 
                   <?php get_template_part('public/components/anime-card-horizontal'); ?>
