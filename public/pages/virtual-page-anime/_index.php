@@ -22,7 +22,7 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
 
             <div class="mt-8 flex flex-col lg:hidden">
                <h1 class="text-3xl font-poppins font-semibold text-green-500">
-                  <?php echo esc_html($Anime->get_title('english')); ?>
+                  <?php echo esc_html($Anime->get_title('romaji')); ?>
                </h1>
 
                <span class="mt-1 text-xl font-semibold text-white">
@@ -112,7 +112,7 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
          <div class="flex flex-col lg:basis-3/4">
             <div class="hidden lg:flex flex-col">
                <h1 class="text-3xl font-poppins font-semibold text-green-500">
-                  <?php echo esc_html($Anime->get_title('english')); ?>
+                  <?php echo esc_html($Anime->get_title('romaji')); ?>
                </h1>
 
                <span class="mt-1 text-xl font-semibold text-white">
@@ -132,24 +132,51 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
                </div>
             </div>
 
-            <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
-               <h2 class="text-xl font-semibold text-green-500">Relacionado</h2>
+            <?php
 
-               <!-- TODO: TRAZER DADOS DA API -->
-               <ul class="grid grid-cols-1 lg:grid-cols-2 lg:gap-4 gap-12 mt-8">
-                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+            $related_animes = $Anime->get_relation();
 
-                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+            if (!empty($related_animes)) {
 
-                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+            ?>
+               <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
+                  <h2 class="text-xl font-semibold text-green-500">Relacionado</h2>
 
-                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+                  <ul class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-8 mt-8">
+                     <?php
 
-                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
+                     foreach ($related_animes as $related_anime) {
+                        $Related_Anime = new Anime($related_anime['node']);
 
-                  <?php get_template_part('public/components/anime-card-horizontal'); ?>
-               </ul>
-            </div>
+                     ?>
+                        <li>
+                           <a href="<?php echo esc_url($Related_Anime->get_link()); ?>">
+                              <?php
+                              // TODO: sanitize and capitalize anime status
+
+                              // TODO: put see all
+
+                              get_template_part('public/components/anime-card-horizontal', null, [
+                                 'Anime' => $Related_Anime,
+                                 'anime_status' => $related_anime['relationType'],
+                                 'image_classes' => 'w-full lg:h-[230px] h-[350px] rounded-lg object-cover',
+                              ]);
+
+                              ?>
+                           </a>
+                        </li>
+                     <?php
+
+                     }
+
+                     ?>
+                  </ul>
+               </div>
+            <?php
+
+            }
+
+            ?>
 
             <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
                <h2 class="text-xl font-semibold text-green-500">Recomendado</h2>

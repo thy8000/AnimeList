@@ -6,16 +6,14 @@ if (!defined('ABSPATH')) {
 
 ?>
 
-<li class="flex md:flex-row flex-col border md:border-neutral-700 border-transparent rounded-lg md:bg-neutral-900 bg-transparent">
-   <picture class="md:w-64 w-full">
-      <img class="h-full w-full object-cover rounded-l-lg" src="https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx135083-TQbNFWKGJJHW.jpg">
-   </picture>
+<picture>
+   <img class="<?php echo esc_attr($args['image_classes']); ?>" src="<?php echo esc_url($args['Anime']->get_image()); ?>">
+</picture>
 
-   <div class="flex flex-col justify-center gap-2 md:p-4 p-0 md:pt-0 pt-4">
-      <span class="text-sm text-green-500 font-semibold">Prequel</span>
+<div class="mt-4">
+   <span class="text-sm text-green-500 font-semibold"><?php echo esc_html($args['anime_status']); ?></span>
 
-      <span class="font-semibold line-clamp-2">Kusuriya no Hitorigoto: Maomao no Koukyuu Nazotoki Techou</span>
+   <span class="font-semibold line-clamp-2"><?php echo esc_html($args['Anime']->get_title()); ?></span>
 
-      <span class="text-neutral-300 text-sm"><b>Status:</b> Completo</span>
-   </div>
-</li>
+   <span class="text-neutral-300 text-sm"><b>Status:</b> <?php echo esc_html($args['Anime']->get_status()); ?></span>
+</div>

@@ -478,6 +478,7 @@ class API implements APIInterface
          ])
          ->set_sub_fields([
             'title' => [
+               'romaji',
                'english',
                'native',
             ],
@@ -490,9 +491,15 @@ class API implements APIInterface
                'edges' => [
                   'relationType',
                   'node' => [
+                     'id',
                      'title' => [
+                        'romaji',
                         'english',
-                     ]
+                     ],
+                     'status',
+                     'coverImage' => [
+                        'extraLarge',
+                     ],
                   ]
                ]
             ]

@@ -91,6 +91,13 @@ class Anime
 
    public function get_relation()
    {
-      return $this->data['relations']['edges'];
+      return array_values(array_filter($this->data['relations']['edges'], function ($item) {
+         return $item['relationType'] !== 'CHARACTER';
+      }));
+   }
+
+   public function get_status()
+   {
+      return ucfirst(strtolower($this->data['status']));
    }
 }
