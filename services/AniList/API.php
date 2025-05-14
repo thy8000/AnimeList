@@ -502,6 +502,22 @@ class API implements APIInterface
                      ],
                   ]
                ]
+            ],
+            'recommendations' => [
+               'nodes' => [
+                  'mediaRecommendation' => [
+                     'id',
+                     'coverImage' => [
+                        'extraLarge'
+                     ],
+                     'title' => [
+                        'romaji',
+                        'english',
+                        'native',
+                     ],
+                     'status'
+                  ]
+               ]
             ]
          ])
          ->build();

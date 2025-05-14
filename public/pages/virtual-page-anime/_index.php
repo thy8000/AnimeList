@@ -146,7 +146,7 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
                      <?php
 
                      foreach ($related_animes as $related_anime) {
-                        $Related_Anime = new Anime($related_anime['node']);
+                        $Related_Anime = new Anime($related_anime['node'], $related_anime['relationType'] ?? null);
 
                      ?>
                         <li>
@@ -158,7 +158,47 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
 
                               get_template_part('public/components/anime-card-horizontal', null, [
                                  'Anime' => $Related_Anime,
-                                 'anime_status' => $related_anime['relationType'],
+                                 'image_classes' => 'w-full lg:h-[230px] h-[350px] rounded-lg object-cover',
+                              ]);
+
+                              ?>
+                           </a>
+                        </li>
+                     <?php
+
+                     }
+
+                     ?>
+                  </ul>
+               </div>
+            <?php
+
+            }
+
+            $recommended_animes = $Anime->get_recommended();
+
+            if (!empty($recommended_animes)) {
+
+            ?>
+               <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
+                  <h2 class="text-xl font-semibold text-green-500">Recomendado</h2>
+
+                  <ul class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-8 mt-8">
+                     <?php
+
+                     foreach ($recommended_animes as $anime) {
+                        $Recommended_Anime = new Anime($anime);
+
+                     ?>
+                        <li>
+                           <a href="<?php echo esc_url($Recommended_Anime->get_link()); ?>">
+                              <?php
+                              // TODO: sanitize and capitalize anime status
+
+                              // TODO: put see all
+
+                              get_template_part('public/components/anime-card-horizontal', null, [
+                                 'Anime' => $Recommended_Anime,
                                  'image_classes' => 'w-full lg:h-[230px] h-[350px] rounded-lg object-cover',
                               ]);
 
@@ -177,12 +217,6 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
             }
 
             ?>
-
-            <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
-               <h2 class="text-xl font-semibold text-green-500">Recomendado</h2>
-
-               Lista de recomendados
-            </div>
 
             <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
                <h2 class="text-xl font-semibold text-green-500">Trailer</h2>

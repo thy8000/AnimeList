@@ -11,8 +11,9 @@ if (!defined('ABSPATH')) {
 class Anime
 {
    private $data;
+   private $relation_type = '';
 
-   public function __construct($data = null)
+   public function __construct($data = null, $relation_type = '')
    {
       if (is_int($data)) {
          $Anilist_Factory = new Anilist_Factory();
@@ -24,15 +25,23 @@ class Anime
       } else {
          return;
       }
+
+      if (!empty($relation_type)) {
+         $this->relation_type = $relation_type;
+      }
    }
 
    public function get_ID()
    {
-      return $this->data['id'];
+      return $this->data['id'] ?? '';
    }
 
    public function get_title($language = 'romaji')
    {
+      if (empty($this->data['title'])) {
+         return;
+      }
+
       if (empty($this->data['title'][$language])) {
          return reset($this->data['title']);
       }
@@ -42,6 +51,10 @@ class Anime
 
    public function get_image($size = 'medium')
    {
+      if (empty($this->data['coverImage'])) {
+         return;
+      }
+
       if (empty($this->data['coverImage'][$size])) {
          return reset($this->data['coverImage']);
       }
@@ -51,53 +64,91 @@ class Anime
 
    public function get_airing()
    {
-      return $this->data['airing'];
+      return $this->data['airing'] ?? null;
    }
 
    public function get_studio()
    {
-      return $this->data['studio'];
+      return $this->data['studio'] ?? null;
    }
 
    public function get_format()
    {
-      return $this->data['format'];
+      return $this->data['format'] ?? null;
    }
 
    public function get_episodes_number()
    {
-      return $this->data['episodes_number'];
+      return $this->data['episodes_number'] ?? null;
    }
 
    public function get_tags()
    {
-      return $this->data['tags'];
+      return $this->data['tags'] ?? null;
    }
 
    public function get_link()
    {
+      if (empty($this->get_ID()) && empty($this->get_title())) {
+         return;
+      }
+
       return get_home_url() . '/anime/' . $this->get_ID() . '/' . strtolower(str_replace(' ', '-', $this->get_title()));
    }
 
    public function get_type()
    {
-      return ucfirst(strtolower($this->data['type']));
+      if (empty($this->data['type'])) {
+         return ucfirst(strtolower($this->data['type']));
+      }
    }
 
    public function get_description()
    {
-      return $this->data['description'];
+      return $this->data['description'] ?? null;
    }
 
    public function get_relation()
    {
-      return array_values(array_filter($this->data['relations']['edges'], function ($item) {
+      if (empty($this->data['relations']['edges'])) {
+         return;
+      }
+
+      return (array) array_filter($this->data['relations']['edges'], function ($item) {
+         if (empty($item['relationType'])) {
+            return $item;
+         }
+
          return $item['relationType'] !== 'CHARACTER';
-      }));
+      });
    }
 
    public function get_status()
    {
+      if (empty($this->data['status'])) {
+         return;
+      }
+
       return ucfirst(strtolower($this->data['status']));
+   }
+
+   public function get_recommended()
+   {
+      if (empty($this->data['recommendations']['nodes'])) {
+         return;
+      }
+
+      return array_map(function ($item) {
+         return $item['mediaRecommendation'];
+      }, $this->data['recommendations']['nodes']);
+   }
+
+   public function get_relation_type()
+   {
+      if (empty($this->relation_type)) {
+         return;
+      }
+
+      return ucfirst(strtolower(str_replace("_", " ", $this->relation_type)));
    }
 }
