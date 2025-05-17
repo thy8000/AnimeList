@@ -518,7 +518,11 @@ class API implements APIInterface
                      'status'
                   ]
                ]
-            ]
+            ],
+            'trailer' => [
+               'id',
+               'site',
+            ],
          ])
          ->build();
 

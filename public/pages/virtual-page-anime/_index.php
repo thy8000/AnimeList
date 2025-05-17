@@ -137,92 +137,34 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
             $related_animes = $Anime->get_relation();
 
             if (!empty($related_animes)) {
-
-            ?>
-               <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
-                  <h2 class="text-xl font-semibold text-green-500">Relacionado</h2>
-
-                  <ul class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-8 mt-8">
-                     <?php
-
-                     foreach ($related_animes as $related_anime) {
-                        $Related_Anime = new Anime($related_anime['node'], $related_anime['relationType'] ?? null);
-
-                     ?>
-                        <li>
-                           <a href="<?php echo esc_url($Related_Anime->get_link()); ?>">
-                              <?php
-                              // TODO: sanitize and capitalize anime status
-
-                              // TODO: put see all
-
-                              get_template_part('public/components/anime-card-horizontal', null, [
-                                 'Anime' => $Related_Anime,
-                                 'image_classes' => 'w-full lg:h-[230px] h-[350px] rounded-lg object-cover',
-                              ]);
-
-                              ?>
-                           </a>
-                        </li>
-                     <?php
-
-                     }
-
-                     ?>
-                  </ul>
-               </div>
-            <?php
-
+               get_template_part('public/pages/virtual-page-anime/components/anime-grid', null, [
+                  'title'      => esc_html__('Relacionados', 'anime-list'),
+                  'anime_list' => $related_animes,
+               ]);
             }
 
             $recommended_animes = $Anime->get_recommended();
 
             if (!empty($recommended_animes)) {
+               get_template_part('public/pages/virtual-page-anime/components/anime-grid', null, [
+                  'title'             => esc_html__('Recomendados', 'anime-list'),
+                  'anime_list'        => $recommended_animes,
+               ]);
+            }
+
+            if (!empty($Anime->get_trailer())) {
 
             ?>
                <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
-                  <h2 class="text-xl font-semibold text-green-500">Recomendado</h2>
+                  <h2 class="text-xl font-semibold text-green-500">Trailer</h2>
 
-                  <ul class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-4 gap-y-8 mt-8">
-                     <?php
-
-                     foreach ($recommended_animes as $anime) {
-                        $Recommended_Anime = new Anime($anime);
-
-                     ?>
-                        <li>
-                           <a href="<?php echo esc_url($Recommended_Anime->get_link()); ?>">
-                              <?php
-                              // TODO: sanitize and capitalize anime status
-
-                              // TODO: put see all
-
-                              get_template_part('public/components/anime-card-horizontal', null, [
-                                 'Anime' => $Recommended_Anime,
-                                 'image_classes' => 'w-full lg:h-[230px] h-[350px] rounded-lg object-cover',
-                              ]);
-
-                              ?>
-                           </a>
-                        </li>
-                     <?php
-
-                     }
-
-                     ?>
-                  </ul>
+                  <iframe class="mt-4 w-full aspect-video" src="<?php echo $Anime->get_trailer(); ?>" title="<?php echo esc_attr($Anime->get_title()); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                </div>
             <?php
 
             }
 
             ?>
-
-            <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
-               <h2 class="text-xl font-semibold text-green-500">Trailer</h2>
-
-               <iframe class="mt-4 w-full aspect-video" src="https://www.youtube.com/embed/8PxRJB3NPRQ" title="「この素晴らしい世界に祝福を！」同梱版ＣＭ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
          </div>
       </div>
 </section>

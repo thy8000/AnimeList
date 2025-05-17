@@ -99,8 +99,10 @@ class Anime
    public function get_type()
    {
       if (empty($this->data['type'])) {
-         return ucfirst(strtolower($this->data['type']));
+         return;
       }
+
+      return ucfirst(strtolower($this->data['type']));
    }
 
    public function get_description()
@@ -129,7 +131,7 @@ class Anime
          return;
       }
 
-      return ucfirst(strtolower($this->data['status']));
+      return str_replace("_", " ", ucfirst(strtolower($this->data['status'])));
    }
 
    public function get_recommended()
@@ -150,5 +152,18 @@ class Anime
       }
 
       return ucfirst(strtolower(str_replace("_", " ", $this->relation_type)));
+   }
+
+   public function get_trailer()
+   {
+      if (empty($this->data['trailer'])) {
+         return;
+      }
+
+      if ($this->data['trailer']['site'] === 'youtube') {
+         return esc_url("https://www.youtube.com/embed/{$this->data['trailer']['id']}");
+      }
+
+      return esc_url("https://geo.dailymotion.com/player.html?video={$this->data['trailer']['id']}");
    }
 }
