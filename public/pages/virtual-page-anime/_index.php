@@ -33,31 +33,42 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
                   <?php echo esc_html($Anime->get_type()); ?>
                </span>
             </div>
+            <?php
 
-            <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
-               <h2 class="text-xl font-semibold text-green-500">Informações adicionais</h2>
+            $additional_info = $Anime->get_additional_info();
 
-               <div class="flex flex-col gap-2 mt-4">
-                  <div class="flex flex-col gap text-white">
-                     <b>Status</b>
+            if (!empty($additional_info)) {
 
-                     <span>Completo</span>
-                  </div>
+            ?>
+               <div class="flex flex-col mt-8 text-white bg-neutral-800 rounded-lg p-4">
+                  <h2 class="text-xl font-semibold text-green-500">Informações adicionais</h2>
 
-                  <div class="flex flex-col gap text-white">
-                     <b>Episódios/Capítulos</b>
+                  <div class="flex flex-col gap-2 mt-4">
+                     <?php
 
-                     <span>220</span>
-                  </div>
+                     foreach ($additional_info as $info) {
+                        if (empty($info['data'])) {
+                           continue;
+                        }
 
-                  <div class="flex flex-col gap text-white">
-                     <b>Data de lançamento</b>
+                     ?>
+                        <div class="flex flex-col gap text-white">
+                           <b><?php echo $info['title']; ?></b>
 
-                     <span>20 de outubro de 2024</span>
+                           <span><?php echo $info['data']; ?></span>
+                        </div>
+                     <?php
+
+                     }
+
+                     ?>
                   </div>
                </div>
-            </div>
+            <?php
 
+            }
+
+            ?>
             <div class="mt-8 text-white">
                <h2 class="text-xl font-semibold text-green-500">Tags</h2>
 

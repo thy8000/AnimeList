@@ -523,6 +523,10 @@ class API implements APIInterface
                'id',
                'site',
             ],
+            'format',
+            'episodes',
+            'duration',
+            'status',
          ])
          ->build();
 

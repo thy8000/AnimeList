@@ -166,4 +166,44 @@ class Anime
 
       return esc_url("https://geo.dailymotion.com/player.html?video={$this->data['trailer']['id']}");
    }
+
+   public function get_episodes()
+   {
+      return $this->data['episodes'] ?? null;
+   }
+
+   public function get_duration()
+   {
+      if (empty($this->data['duration'])) {
+         return;
+      }
+
+      return sprintf(esc_html__('%s minutes', 'anime-list'), $this->data['duration']);
+   }
+
+   public function get_additional_info()
+   {
+      $additional_info = [
+         'format' => [
+            'title' => __('Format', 'anime-list'),
+            'data'  => $this->get_format() ?? null
+         ],
+         'episodes' => [
+            'title' => __('Episodes', 'anime-list'),
+            'data'  => $this->get_episodes() ?? null
+         ],
+         'duration' => [
+            'title' => __('Duration', 'anime-list'),
+            'data' => $this->get_duration() ?? null,
+         ],
+         'status' => [
+            'title' => __('Status', 'anime-list'),
+            'data'  => $this->get_status() ?? null,
+         ]
+      ];
+
+      return array_filter($additional_info, function ($item) {
+         return !empty($item['data']);
+      });
+   }
 }
