@@ -527,6 +527,27 @@ class API implements APIInterface
             'episodes',
             'duration',
             'status',
+            'startDate' => [
+               'day',
+               'month',
+               'year',
+            ],
+            'endDate' => [
+               'day',
+               'month',
+               'year',
+            ],
+            'averageScore',
+            'popularity',
+            'favourites',
+            'studios' => [
+               'nodes' => [
+                  'name',
+                  'isAnimationStudio',
+               ],
+            ],
+            'source',
+            'genres',
          ])
          ->build();
 

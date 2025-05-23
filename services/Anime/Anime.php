@@ -3,6 +3,7 @@
 namespace AnimeList\Services\Anime;
 
 use AnimeList\Services\AniList\Factory as Anilist_Factory;
+use DateTime;
 
 if (!defined('ABSPATH')) {
    exit;
@@ -181,8 +182,116 @@ class Anime
       return sprintf(esc_html__('%s minutes', 'anime-list'), $this->data['duration']);
    }
 
+   public function get_start_date()
+   {
+      $day = $this->data['startDate']['day'] ?? null;
+      $month = $this->data['startDate']['month'] ?? null;
+      $year = $this->data['startDate']['year'] ?? null;
+
+      if (
+         empty($day) ||
+         empty($month) ||
+         empty($year)
+      ) {
+         return;
+      }
+
+      $timestamp_date = mktime(0, 0, 0, $month, $day, $year);
+
+      return date('M d, Y', $timestamp_date);
+   }
+
+   public function get_end_date()
+   {
+      $day = $this->data['endDate']['day'] ?? null;
+      $month = $this->data['endDate']['month'] ?? null;
+      $year = $this->data['endDate']['year'] ?? null;
+
+      if (
+         empty($day) ||
+         empty($month) ||
+         empty($year)
+      ) {
+         return;
+      }
+
+      $timestamp_date = mktime(0, 0, 0, $month, $day, $year);
+
+      return date('M d, Y', $timestamp_date);
+   }
+
+   public function get_average_score()
+   {
+      if (empty($this->data['averageScore'])) {
+         return;
+      }
+
+      return "{$this->data['averageScore']}/100";
+   }
+
+   public function get_popularity()
+   {
+      if (empty($this->data['popularity'])) {
+         return;
+      }
+
+      return $this->data['popularity'];
+   }
+
+   public function get_favourites()
+   {
+      if (empty($this->data['favourites'])) {
+         return;
+      }
+
+      return $this->data['favourites'];
+   }
+
+   public function get_studios(bool $is_main = true)
+   {
+      if (empty($this->data['studios']['nodes'])) {
+         return;
+      }
+
+      $studios_data = array_map(function ($item) use ($is_main) {
+         if (!empty($item['isAnimationStudio']) && !empty($is_main)) {
+            return $item['name'];
+         }
+
+         if (empty($item['isAnimationStudio']) && empty($is_main)) {
+            return $item['name'];
+         }
+
+         return [];
+      }, $this->data['studios']['nodes']);
+
+      $studios_data = array_filter($studios_data);
+
+      return implode('<br>', array_unique($studios_data));
+   }
+
+   public function get_source()
+   {
+      if (empty($this->data['source'])) {
+         return;
+      }
+
+      return ucfirst(strtolower(str_replace("_", " ", $this->data['source'])));
+   }
+
+   public function get_genres()
+   {
+      if (empty($this->data['genres'])) {
+         return;
+      }
+
+      return implode('<br>', $this->data['genres']);
+   }
+
    public function get_additional_info()
    {
+      // TODO: Adittional info for manga.
+
       $additional_info = [
          'format' => [
             'title' => __('Format', 'anime-list'),
@@ -199,7 +308,43 @@ class Anime
          'status' => [
             'title' => __('Status', 'anime-list'),
             'data'  => $this->get_status() ?? null,
-         ]
+         ],
+         'startDate' => [
+            'title' => __('Start date', 'anime-list'),
+            'data'  => $this->get_start_date(),
+         ],
+         'endDate' => [
+            'title' => __('End date', 'anime-list'),
+            'data'  => $this->get_end_date(),
+         ],
+         'averageScore' => [
+            'title' => __('Average score', 'anime-list'),
+            'data'  => $this->get_average_score(),
+         ],
+         'popularity' => [
+            'title' => __('Popularity', 'anime-list'),
+            'data'  => $this->get_popularity(),
+         ],
+         'favorites' => [
+            'title' => __('Favorites', 'anime-list'),
+            'data'  => $this->get_favourites(),
+         ],
+         'studios' => [
+            'title' => __('Studios', 'anime-list'),
+            'data'  => $this->get_studios(),
+         ],
+         'producers' => [
+            'title' => __('Producers', 'anime-list'),
+            'data'  => $this->get_studios(false),
+         ],
+         'source' => [
+            'title' => __('Source', 'anime-list'),
+            'data'  => $this->get_source(),
+         ],
+         'source' => [
+            'title' => __('Genres', 'anime-list'),
+            'data'  => $this->get_genres(),
+         ],
       ];
 
       return array_filter($additional_info, function ($item) {
