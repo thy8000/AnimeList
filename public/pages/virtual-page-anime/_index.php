@@ -68,43 +68,41 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
 
             }
 
+            $tags = $Anime->get_tags();
+
+            if (!empty($tags)) {
+
             ?>
-            <div class="mt-8 text-white">
-               <h2 class="text-xl font-semibold text-green-500">Tags</h2>
+               <div class="mt-8 text-white">
+                  <h2 class="text-xl font-semibold text-green-500">Tags</h2>
 
-               <div class="flex flex-col gap-4 mt-4">
-                  <div class="flex justify-between text-white bg-neutral-800 rounded-lg p-3">
-                     <span>Tag</span>
+                  <div class="flex flex-col gap-4 mt-4">
+                     <?php
 
-                     <span>100%</span>
-                  </div>
+                     foreach ($tags as $key => $tag) {
+                        $tooltip_key = "tooltip_{$key}";
+                     ?>
+                        <div x-data="{<?php echo esc_attr($tooltip_key); ?>: false}" x-on:mouseover="<?php echo esc_attr($tooltip_key); ?> = true" x-on:mouseleave="<?php echo esc_attr($tooltip_key); ?> = false" class="relative flex justify-between text-white bg-neutral-800 rounded-lg p-3">
+                           <span><?php echo $tag['name']; ?></span>
 
-                  <div class="flex justify-between text-white bg-neutral-800 rounded-lg p-3">
-                     <span>Tag</span>
+                           <span><?php echo $tag['rank']; ?>%</span>
+                           <!-- TODO: ARRUMAR TOOLTIP -->
+                           <span x-show="<?php echo esc_attr($tooltip_key); ?>" class="absolute z-10 -top-[40px] left-2/4 -ml-[60px] bg-neutral-800 rounded-lg p-[5px] text-center after:content-[''] after:absolute after:-top-[15px] after:left-2/4 after:-ml-[5px] after:border-2 after:border-solid after:border-transparent after:border-t-neutral-800">
+                              <?php echo $tag['description']; ?>
+                           </span>
+                        </div>
+                     <?php
 
-                     <span>100%</span>
-                  </div>
+                     }
 
-                  <div class="flex justify-between text-white bg-neutral-800 rounded-lg p-3">
-                     <span>Tag</span>
-
-                     <span>100%</span>
-                  </div>
-
-                  <div class="flex justify-between text-white bg-neutral-800 rounded-lg p-3">
-                     <span>Tag</span>
-
-                     <span>100%</span>
-                  </div>
-
-                  <div class="flex justify-between text-white bg-neutral-800 rounded-lg p-3">
-                     <span>Tag</span>
-
-                     <span>100%</span>
+                     ?>
                   </div>
                </div>
-            </div>
+            <?php
 
+            }
+
+            ?>
             <div class="mt-8">
                <h2 class="text-xl font-semibold text-green-500">Links externos</h2>
 

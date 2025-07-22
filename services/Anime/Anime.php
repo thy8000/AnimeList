@@ -83,11 +83,6 @@ class Anime
       return $this->data['episodes_number'] ?? null;
    }
 
-   public function get_tags()
-   {
-      return $this->data['tags'] ?? null;
-   }
-
    public function get_link()
    {
       if (empty($this->get_ID()) && empty($this->get_title())) {
@@ -350,5 +345,14 @@ class Anime
       return array_filter($additional_info, function ($item) {
          return !empty($item['data']);
       });
+   }
+
+   public function get_tags()
+   {
+      if (empty($this->data['tags'])) {
+         return;
+      }
+
+      return $this->data['tags'];
    }
 }

@@ -548,6 +548,11 @@ class API implements APIInterface
             ],
             'source',
             'genres',
+            'tags' => [
+               'description',
+               'name',
+               'rank',
+            ],
          ])
          ->build();
 
