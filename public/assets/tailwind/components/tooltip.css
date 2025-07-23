@@ -1,0 +1,11 @@
+.tooltip-container:hover .tooltip {
+   @apply visible;
+}
+
+.tooltip {
+   @apply invisible w-[120px] bg-black text-white text-center rounded-lg py-[5px] absolute z-10 bottom-[150%] left-1/2 -ml-[60px];
+}
+
+.tooltip::after {
+   @apply content-[''] absolute top-full left-1/2 -ml-[5px] border-[5px] border-solid border-t-black border-x-transparent border-b-transparent;
+}
