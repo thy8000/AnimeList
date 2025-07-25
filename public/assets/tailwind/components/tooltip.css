@@ -3,9 +3,9 @@
 }
 
 .tooltip {
-   @apply invisible w-[120px] bg-black text-white text-center rounded-lg py-[5px] absolute z-10 bottom-[150%] left-1/2 -ml-[60px];
+   @apply invisible w-full bg-neutral-800 border border-neutral-700  rounded-lg p-4 absolute z-10 bottom-[125%] left-0 -ml-[60px] text-sm text-white text-center transition-all duration-300;
 }
 
 .tooltip::after {
-   @apply content-[''] absolute top-full left-1/2 -ml-[5px] border-[5px] border-solid border-t-black border-x-transparent border-b-transparent;
+   @apply content-[''] absolute top-full left-1/2 -ml-[5px] border-[5px] border-solid border-t-neutral-800 border-x-transparent border-b-transparent;
 }

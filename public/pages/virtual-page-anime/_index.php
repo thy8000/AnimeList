@@ -82,7 +82,7 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
                      foreach ($tags as $key => $tag) {
 
                      ?>
-                        <div class="tooltip-container relative flex justify-between text-white bg-neutral-800 rounded-lg p-3">
+                        <div class="tooltip-container relative flex justify-between text-white bg-neutral-800 rounded-lg p-3 hover:text-green-500 cursor-pointer transition-all duration-300">
                            <span><?php echo $tag['name']; ?></span>
 
                            <span><?php echo $tag['rank']; ?>%</span>
@@ -106,20 +106,62 @@ $Anime = new Anime((int) get_query_var('anime_ID'));
 
             }
 
+            $external_links = $Anime->get_external_links();
+
+            if (!empty($external_links)) {
+
             ?>
-            <div class="mt-8">
-               <h2 class="text-xl font-semibold text-green-500">Links externos</h2>
+               <div class="mt-8">
+                  <h2 class="text-xl font-semibold text-green-500">Links externos</h2>
+                  <?php
 
-               <div class="flex flex-col gap-4 mt-4">
-                  <div class="relative flex justify-end text-white bg-neutral-800 rounded-lg p-3">
-                     <picture class="absolute top-0 left-0 flex items-center w-[15%] h-full bg-red-500 p-1 rounded-l-lg">
-                        <img src="https://s4.anilist.co/file/anilistcdn/link/icon/13-ZwR1Xwgtyrwa.png">
-                     </picture>
+                  foreach ($external_links as $external_link) {
 
-                     <span class="w-[75%]">Youtube</span>
-                  </div>
+                  ?>
+                     <div class="flex flex-col gap-4 mt-4">
+                        <a class="relative flex justify-end text-white bg-neutral-800 rounded-lg p-2 hover:text-green-500 cursor-pointer transition-all duration-300" href="<?php echo esc_url($external_link['url']); ?>" target="_blank">
+                           <picture class="absolute top-0 left-0 flex items-center w-[15%] h-full p-1 rounded-l-lg" style="background-color: <?php echo !empty($external_link['color']) ? $external_link['color'] : '#000'; ?>">
+                              <?php
+
+                              if (!empty($external_link['icon'])) {
+
+                              ?>
+                                 <img class="h-full w-full object-contain" src="<?php echo esc_url($external_link['icon']); ?>">
+                              <?php
+
+                              }
+
+                              ?>
+                           </picture>
+
+                           <div class="w-[75%]">
+                              <span><?php echo esc_html($external_link['site']); ?></span>
+
+                              <?php
+
+                              if (!empty($external_link['language']) && $external_link['language'] === 'Japanese') {
+
+                              ?>
+                                 <span>(<?php echo esc_html($external_link['language']); ?>)</span>
+                              <?php
+
+                              }
+
+                              ?>
+                           </div>
+                        </a>
+                     </div>
+                  <?php
+
+                  }
+
+                  ?>
                </div>
-            </div>
+            <?php
+
+            }
+
+            ?>
          </div>
 
          <div class="flex flex-col lg:basis-3/4">

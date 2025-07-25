@@ -553,6 +553,13 @@ class API implements APIInterface
                'name',
                'rank',
             ],
+            'externalLinks' => [
+               'color',
+               'icon',
+               'url',
+               'site',
+               'language'
+            ]
          ])
          ->build();
 

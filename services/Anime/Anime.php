@@ -355,4 +355,9 @@ class Anime
 
       return $this->data['tags'];
    }
+
+   public function get_external_links()
+   {
+      return $this->data['externalLinks'] ?? null;
+   }
 }
