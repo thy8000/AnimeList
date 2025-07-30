@@ -2,6 +2,8 @@
 
 namespace AnimeList\Services\AniList;
 
+use AnimeList\Services\AniList\Factory;
+
 if (!defined('ABSPATH')) {
    exit;
 }
@@ -11,8 +13,12 @@ class Utils
    private static $seasons = ['WINTER', 'SPRING', 'SUMMER', 'FALL'];
 
    // todo: talvez refatorar esse também
-   public static function get_genres(array $genres)
+   public static function get_genres()
    {
+      $Anilist_Factory = new Factory();
+      $API = $Anilist_Factory->get_api();
+
+      $genres = $API->get_genres();
       $_genres = array_combine($genres, $genres);
 
       return array_merge(['Any' => 'Any'], $_genres);

@@ -4,7 +4,15 @@ if (!defined('ABSPATH')) {
    exit;
 }
 
+use AnimeList\Services\AniList\Factory;
 use AnimeList\Services\AniList\Utils;
+
+if (!empty($args['api'])) {
+   $API = $args['api'];
+} else {
+   $Anilist_Factory = new Factory();
+   $API = $Anilist_Factory->get_api();
+}
 
 ?>
 
@@ -55,7 +63,7 @@ use AnimeList\Services\AniList\Utils;
                'id'   => 'page-anime-list-genre',
                'label' => __('Genre', 'thunay'),
                'type' => 'select',
-               'options' => Utils::get_genres($args['genres']),
+               'options' => Utils::get_genres(),
                'x-model' => 'filterMap.genre',
                'x-on:change' => 'filter'
             ]);
@@ -70,7 +78,7 @@ use AnimeList\Services\AniList\Utils;
                'id'   => 'page-anime-list-year',
                'label' => __('Year', 'thunay'),
                'type' => 'select',
-               'options' => Utils::get_years($args['oldest_anime'][0]['startDate']['year'] ?? 1940, date('Y') + 1),
+               'options' => Utils::get_years($API->get_oldest_anime()[0]['startDate']['year'], date('Y') + 1),
                'x-model' => 'filterMap.seasonYear',
                'x-on:change' => 'filter'
             ]);

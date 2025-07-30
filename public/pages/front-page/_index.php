@@ -13,8 +13,6 @@ get_template_part('public/components/header/_index', null, [
 $Anilist_Factory = new Factory();
 $API = $Anilist_Factory->get_api();
 
-$genres = $API->get_genres();
-$oldest_anime = $API->get_oldest_anime();
 $seasons = $API->get_seasons();
 $formats = $API->get_formats();
 
@@ -26,8 +24,7 @@ $content_data = [
 ];
 
 get_template_part('public/pages/front-page/components/header', null, [
-   'genres'       => $genres,
-   'oldest_anime' => $oldest_anime,
+   'api'          => $API,
    'seasons'      => $seasons,
    'formats'      => $formats,
 ]);

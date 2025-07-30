@@ -43,6 +43,8 @@ class API implements APIInterface
 
    public function get_oldest_anime()
    {
+      $first_year = new \DateTime('0001-01-01');
+
       $this->query = $this->Query_Builder
          ->set_query('getOldestAnime')
          ->set_object('Page', [
@@ -61,7 +63,7 @@ class API implements APIInterface
                'type'  => 'MediaSort',
             ],
             'startDate_greater' => [
-               'value' => '19000000',
+               'value' => (int) $first_year->format('Ymd'),
                'type'  => 'FuzzyDateInt',
             ]
          ])
@@ -390,7 +392,7 @@ class API implements APIInterface
       }
 
       if (isset($args['seasonYear']) && !empty($args['seasonYear'])) {
-         $object_args['seasonYear'] = [
+         $object_args['startDate'] = [
             'value' => $args['seasonYear'],
             'type'  => 'Int'
          ];
