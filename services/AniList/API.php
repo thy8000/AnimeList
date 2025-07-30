@@ -156,6 +156,10 @@ class API implements APIInterface
             'sort' => [
                'value' => 'TRENDING_DESC',
                'type'  => 'MediaSort',
+            ],
+            'type' => [
+               'value' => 'ANIME',
+               'type'  => 'MediaType',
             ]
          ])
          ->set_sub_fields([
@@ -207,6 +211,10 @@ class API implements APIInterface
             'sort' => [
                'value' => 'POPULARITY_DESC',
                'type'  => 'MediaSort',
+            ],
+            'type' => [
+               'value' => 'ANIME',
+               'type'  => 'MediaType',
             ]
          ])
          ->set_sub_fields([
@@ -267,6 +275,10 @@ class API implements APIInterface
             'sort' => [
                'value' => 'POPULARITY_DESC',
                'type' => 'MediaSort'
+            ],
+            'type' => [
+               'value' => 'ANIME',
+               'type'  => 'MediaType',
             ]
          ])
          ->set_sub_fields([
@@ -317,6 +329,10 @@ class API implements APIInterface
             'sort' => [
                'value' => 'POPULARITY_DESC',
                'type' => 'MediaSort'
+            ],
+            'type' => [
+               'value' => 'ANIME',
+               'type'  => 'MediaType',
             ]
          ])
          ->set_sub_fields([
@@ -359,11 +375,6 @@ class API implements APIInterface
          return $value !== 'Any' && trim($value) !== '';
       });
 
-      $object_args['type'] = [
-         'value' => 'ANIME',
-         'type'  => 'MediaType'
-      ];
-
       if (isset($args['search']) && !empty($args['search'])) {
          $object_args['search'] = [
             'value' => $args['search'],
@@ -376,22 +387,12 @@ class API implements APIInterface
             'value' => is_array($args['genre']) ? $args['genre'] : [$args['genre']],
             'type'  => '[String]'
          ];
-
-         $object_args['sort'] = [
-            'value' => 'POPULARITY_DESC',
-            'type'  => 'MediaSort'
-         ];
       }
 
       if (isset($args['seasonYear']) && !empty($args['seasonYear'])) {
          $object_args['seasonYear'] = [
             'value' => $args['seasonYear'],
             'type'  => 'Int'
-         ];
-
-         $object_args['sort'] = [
-            'value' => 'POPULARITY_DESC',
-            'type'  => 'MediaSort'
          ];
       }
 
@@ -405,6 +406,11 @@ class API implements APIInterface
             'value' => 'START_DATE_DESC',
             'type'  => 'MediaSort'
          ];
+      } else {
+         $object_args['sort'] = [
+            'value' => 'POPULARITY_DESC',
+            'type'  => 'MediaSort'
+         ];
       }
 
       if (isset($args['format']) && !empty($args['format'])) {
@@ -412,10 +418,10 @@ class API implements APIInterface
             'value' => $args['format'],
             'type'  => 'MediaFormat',
          ];
-
-         $object_args['sort'] = [
-            'value' => 'START_DATE_DESC',
-            'type'  => 'MediaSort',
+      } else {
+         $object_args['type'] = [
+            'value' => 'ANIME',
+            'type'  => 'MediaType'
          ];
       }
 
