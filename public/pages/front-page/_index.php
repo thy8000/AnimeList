@@ -13,9 +13,6 @@ get_template_part('public/components/header/_index', null, [
 $Anilist_Factory = new Factory();
 $API = $Anilist_Factory->get_api();
 
-$seasons = $API->get_seasons();
-$formats = $API->get_formats();
-
 $content_data = [
    'trending_now'         => $API->get_trending_now(),
    'popular_this_season'  => $API->get_season_popular(),
@@ -23,10 +20,10 @@ $content_data = [
    'all_time_popular'     => $API->get_all_time_popular()
 ];
 
-get_template_part('public/pages/front-page/components/header', null, [
+get_template_part('public/components/main-hero', null, [
    'api'          => $API,
-   'seasons'      => $seasons,
-   'formats'      => $formats,
+   'description'  => esc_html__('Explore, descubra e encontre seus animes e mangás favoritos.', 'thunay'),
+   'large_description' => true,
 ]);
 
 get_template_part('public/pages/front-page/components/content', null, [
