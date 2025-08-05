@@ -1,145 +1,153 @@
-# 🎌 AnimeList - WordPress Theme
+# AnimeList - WordPress Theme
 
-Um tema WordPress que integra com a API do AniList para exibir informações sobre animes e mangás.
+A WordPress theme that integrates with the AniList API to display information about anime and manga.
 
-## 📋 Descrição
+## Description
 
-O **AnimeList** é um projeto pessoal que utiliza a API do AniList para buscar e exibir listas de animes e mangás.
+**AnimeList** is a personal project that uses the AniList API to search and display lists of anime and manga.
 
-## 🛠️ Tecnologias Utilizadas
+## Technologies Used
 
--  **WordPress**: CMS base
--  **PHP 7.4+**: Linguagem principal
--  **Tailwind CSS**: Framework CSS utilitário
--  **Webpack**: Bundler de assets
--  **Alpine.js**: Framework JavaScript minimalista
--  **GraphQL**: Para consultas à API do AniList
--  **Composer**: Gerenciamento de dependências PHP
+-  **WordPress**: Base CMS
+-  **PHP 7.4+**: Main language
+-  **Tailwind CSS**: Utility CSS framework
+-  **Webpack**: Asset bundler
+-  **Alpine.js**: Minimalist JavaScript framework
+-  **GraphQL**: For AniList API queries
+-  **Composer**: PHP dependency management
 
-## 📁 Estrutura do Projeto
+## Project Structure
 
 ```
 AnimeList/
-├── core/                    # Funcionalidades principais do tema
-│   ├── EnqueueScripts.php   # Carregamento de assets
-│   ├── TemplateHierarchy.php # Hierarquia de templates
-│   ├── ThemeSupport.php     # Suporte a recursos do tema
-│   └── WPHead.php          # Configurações do head
-├── services/               # Serviços e integrações
-│   ├── AniList/           # Integração com API do AniList
-│   ├── Anime/             # Classes relacionadas a animes
-│   ├── GraphQL/           # Builder de queries GraphQL
-│   └── Request/           # Cliente HTTP (cURL)
-├── public/                # Assets públicos
-│   ├── assets/            # CSS, JS e dependências
-│   ├── components/        # Componentes reutilizáveis
-│   └── pages/            # Templates de páginas
-├── views/                # Sistema de views
-├── utils/                # Utilitários
-└── vendor/               # Dependências do Composer
+├── core/                    # Main theme functionalities
+│   ├── EnqueueScripts.php   # Asset loading
+│   ├── TemplateHierarchy.php # Template hierarchy
+│   ├── ThemeSupport.php     # Theme feature support
+│   └── WPHead.php          # Head configurations
+├── services/               # Services and integrations
+│   ├── AniList/           # AniList API integration
+│   ├── Anime/             # Anime-related classes
+│   ├── GraphQL/           # GraphQL query builder
+│   └── Request/           # HTTP client (cURL)
+├── public/                # Public assets
+│   ├── assets/            # CSS, JS and dependencies
+│   ├── components/        # Reusable components
+│   └── pages/            # Page templates
+├── views/                # View system
+├── utils/                # Utilities
+└── vendor/               # Composer dependencies
 ```
 
-## 🚀 Instalação
+## Installation
 
-### Pré-requisitos
+### Prerequisites
 
 -  WordPress 5.0+
 -  PHP 7.4+
 -  Node.js 14+
 -  Composer
 
-### Passos de Instalação
+### Installation Steps
 
-1. **Clone o repositório**
+1. **Clone the repository**
 
    ```bash
-   git clone [url-do-repositorio]
+   git clone [repository-url]
    cd AnimeList
    ```
 
-2. **Instale as dependências PHP**
+2. **Install PHP dependencies**
 
    ```bash
    composer install
    ```
 
-3. **Instale as dependências Node.js**
+3. **Install Node.js dependencies**
 
    ```bash
    npm install
    ```
 
-4. **Compile os assets**
+4. **Compile assets**
 
    ```bash
    npm run assets
    ```
 
-5. **Ative o tema no WordPress**
-   -  Copie a pasta `AnimeList` para `/wp-content/themes/`
-   -  Ative o tema no painel administrativo do WordPress
+5. **Activate the theme in WordPress**
+   -  Copy the `AnimeList` folder to `/wp-content/themes/`
+   -  Activate the theme in the WordPress admin panel
 
-## 🛠️ Desenvolvimento
+## Development
 
-### Scripts Disponíveis
+### Available Scripts
 
 ```bash
-# Compilar CSS (Tailwind)
+# Compile CSS (Tailwind)
 npm run css
 
-# Compilar JavaScript (Webpack)
+# Compile JavaScript (Webpack)
 npm run js
 
-# Compilar todos os assets
+# Compile all assets
 npm run assets
 
-# Regenerar autoload do Composer
+# Regenerate Composer autoload
 npm run autoload
 ```
 
-### Estrutura de Desenvolvimento
+### Development Structure
 
--  **CSS**: Edite os arquivos em `public/assets/tailwind/`
--  **JavaScript**: Adicione scripts em `public/assets/scripts/`
--  **PHP**: Siga a estrutura PSR-4 em `core/`, `services/`, `views/`
+-  **CSS**: Edit files in `public/assets/tailwind/`
+-  **JavaScript**: Add scripts in `public/assets/scripts/`
+-  **PHP**: Follow PSR-4 structure in `core/`, `services/`, `views/`
 
-## 🔧 Configuração
+## Configuration
 
-## 📡 API do AniList
+## AniList API
 
-O tema integra com a API GraphQL do AniList para buscar:
+The theme integrates with the AniList GraphQL API to fetch:
 
--  Lista de gêneros
--  Animes em tendência
--  Animes populares da temporada
--  Próximos lançamentos
--  Filtros avançados
--  Informações detalhadas de animes
+-  Genre list
+-  Trending anime
+-  Popular season anime
+-  Upcoming releases
+-  Advanced filters
+-  Detailed anime information
 
-### Endpoints Principais
+### Main Endpoints
 
--  `get_genres()`: Lista todos os gêneros disponíveis
--  `get_trending_now()`: Animes em tendência
--  `get_season_popular()`: Animes populares da temporada atual
--  `get_upcoming_next_season()`: Próximos lançamentos
--  `get_filter()`: Sistema de filtros avançados
+-  `get_genres()`: List all available genres
+-  `get_trending_now()`: Trending anime
+-  `get_season_popular()`: Popular anime from current season
+-  `get_upcoming_next_season()`: Upcoming releases
+-  `get_filter()`: Advanced filtering system
 
-## 📄 Licença
+## TODO List
 
-Este projeto está licenciado sob a GNU General Public License v2.0 - veja o arquivo [LICENSE](LICENSE) para detalhes.
+-  [ ] Create trending now archive page
+-  [ ] Create popular this season archive page
+-  [ ] Create upcoming next season archive page
+-  [ ] Create all time popular archive page
+-  [ ] Create top 100 anime component
 
-## 👨‍💻 Autor
+## License
+
+This project is licensed under the GNU General Public License v2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Author
 
 **Thunay Moreira de Soares**
 
 -  Website: [https://thy8000.github.io/thunaymoreiradesoares2/](https://thy8000.github.io/thunaymoreiradesoares2/)
 -  GitHub: [@thy8000](https://github.com/thy8000)
 
-## 🙏 Agradecimentos
+## Acknowledgments
 
--  [AniList](https://anilist.co/) pela API gratuita
--  [WordPress](https://wordpress.org/) pela plataforma
--  [Tailwind CSS](https://tailwindcss.com/) pelo framework CSS
--  Comunidade WordPress e de desenvolvimento web
+-  [AniList](https://anilist.co/) for the free API
+-  [WordPress](https://wordpress.org/) for the platform
+-  [Tailwind CSS](https://tailwindcss.com/) for the CSS framework
+-  WordPress and web development community
 
 ---
