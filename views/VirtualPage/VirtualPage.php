@@ -19,7 +19,6 @@ class VirtualPage
    public function register_virtual_pages()
    {
       add_rewrite_rule('^anime/([0-9]+)/([^/]+)/?$', 'index.php?anime_ID=$matches[1]&anime_title=$matches[2]', 'top');
-      add_rewrite_rule('^trending-now/?$', 'index.php?trending_now=true', 'top');
    }
 
    public function register_query_vars($vars)

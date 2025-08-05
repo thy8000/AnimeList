@@ -9,9 +9,19 @@ if (!defined('ABSPATH')) {
 <div class="flex justify-between">
    <h3 class="text-lg font-semibold text-white font-poppins"><?php echo $args['title'] ?? esc_html__('Animes', 'thunay');; ?></h3>
 
-   <a class="text-white hover:text-green-500 transition duration-300 ease-in" href="<?php echo $args['view_more_link'] ?? '#'; ?>">
-      <?php esc_html_e('See all', 'thunay'); ?>
-   </a>
+   <?php
+
+   if (!empty($args['view_more_link'])) {
+
+   ?>
+      <a class="text-white hover:text-green-500 transition duration-300 ease-in" href="<?php echo $args['view_more_link'] ?? '#'; ?>">
+         <?php esc_html_e('See all', 'thunay'); ?>
+      </a>
+   <?php
+
+   }
+
+   ?>
 </div>
 
 <?php
