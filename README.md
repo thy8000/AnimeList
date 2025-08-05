@@ -140,7 +140,7 @@ This project is licensed under the GNU General Public License v2.0 - see the [LI
 
 **Thunay Moreira de Soares**
 
--  Website: [https://thy8000.github.io/thunaymoreiradesoares2/](https://thy8000.github.io/thunaymoreiradesoares2/)
+-  Website: [http://www.thunaymoreiradesoares.com/en-us](http://www.thunaymoreiradesoares.com/en-us)
 -  GitHub: [@thy8000](https://github.com/thy8000)
 
 ## Acknowledgments
